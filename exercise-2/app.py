@@ -42,18 +42,34 @@ def results():
     url = 'http://api.openweathermap.org/data/2.5/weather'
     params = {
         'appid': API_KEY,
-        'place': city,
+        'q': city,
         'units': units
     }
-    result_json = requests.get(url, params=params).json()
 
+    print(f"API Request Params: {params}")
+
+    response = requests.get(url, params=params)
+
+    if not response.ok:
+        print(f"Error in API request. Status Code: {response.status_code}")
+        return render_template('results.html', city='City Name Not Available')
+
+    try:
+        result_json = response.json()
+    except Exception as e:
+        print(f"Error parsing JSON response: {e}")
+        print(f"Response content: {response.content}")
+        return render_template('results.html', city='City Name Not Available')
+
+    print(result_json)  
+    
     context = {
         'date': datetime.now(),
-        'city': result_json['name'],
-        'description': result_json['weather'][0]['description'],
-        'temp': result_json['main']['temperature'],
-        'humidity': result_json['main']['humidity'],
-        'wind_speed': result_json['wind']['speed'],
+        'city': result_json.get('name', 'City Name Not Available'),
+        'description': result_json.get('weather', [{'description': 'Weather Data Not Available'}])[0]['description'],
+        'temp': result_json.get('main', {}).get('temp', 'Temperature Data Not Available'),
+        'humidity': result_json.get('main', {}).get('humidity', 'Humidity Data Not Available'),
+        'wind_speed': result_json.get('wind', {}).get('speed', 'Wind Speed Data Not Available'),
         'units_letter': get_letter_for_units(units)
     }
 

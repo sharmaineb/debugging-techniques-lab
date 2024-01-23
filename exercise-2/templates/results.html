@@ -3,15 +3,22 @@
 
 <section>
     <h1>Weather in {{ city }}</h1>
-    <p>on {{ date.strftime('%A, %B %-d, %Y at %-I:%M %p') }}</p>
-    
+    {% if date %}
+        <p>on {{ date.strftime('%A, %B %-d, %Y at %-I:%M %p') }}</p>
+    {% endif %}
 
-    <ul>
-        <li>Temperature: {{ temp }}° {{ units_letter }}</li>
-        <li>Description: {{ description }}</li>
-        <li>Humidity: {{ humidity }}%</li>
-        <li>Wind speed: {{ wind_speed }} miles/hour</li>
-    </ul>
-    
+    {% if temp != 'Temperature Data Not Available' %}
+        <ul>
+            <li>Temperature: {{ temp }}° {{ units_letter }}</li>
+            <li>Description: {{ description }}</li>
+            <li>Humidity: {{ humidity }}%</li>
+            <li>Wind speed: {{ wind_speed }} miles/hour</li>
+        </ul>
+    {% else %}
+        <p>No weather data available for the specified city.</p>
+    {% endif %}
 </section>
+
 {% endblock %}
+
+

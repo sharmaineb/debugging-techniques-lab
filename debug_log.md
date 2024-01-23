@@ -68,7 +68,108 @@ Issue 2: BuildError - Could not build URL for endpoint '/'. Did you mean 'fulfil
 
 ## Exercise 2
 
-[[Your answer goes here!]]
+Issue 1: KeyError - 'name' not found in result_json
+
+- Expected vs. Actual Output:
+  - Expected Output: Display weather information for the specified city.
+  - Actual Output: Encountered a KeyError: 'name' when trying to access 'name' in the result_json.
+
+- Stack Trace:
+  - The stack trace indicated a KeyError with the message: 'name' not found during the execution of the results route (line 52).
+
+- Technique Used:
+  - Trace Forward:
+    - Looked at the results route and identified the problematic line where the KeyError occurred (line 52).
+
+- Debugging Steps:
+  1. Trace Forward:
+     - Looked at the results route and identified the problematic line where the KeyError occurred (line 52).
+     - Examined the API response to understand the structure of result_json.
+
+  2. Trace Forward:
+     - Identified that the API response may not have a 'name' key.
+     - Updated the code to handle the absence of 'name' key.
+
+- Assumptions:
+  - Assumed that the API response always contains a 'name' key.
+
+- Solution:
+  - Updated the line 'city': result_json.get('name', 'City Name Not Available') to handle the n/a of 'name' key.
+
+Issue 2: KeyError - 'weather' not found in result_json
+
+- Expected vs. Actual Output:
+  - Expected Output: Display weather information including the description.
+  - Actual Output: Encountered a KeyError: 'weather' when trying to access 'weather' in the result_json.
+
+- Stack Trace:
+  - The stack trace indicated a KeyError with the message: 'weather' not found during the execution of the results route (line 53).
+
+- Technique Used:
+  - Trace Forward:
+    - Looked at the results route and identified the problematic line where the KeyError occurred (line 53).
+
+- Debugging Steps:
+  1. Trace Forward:
+     - Looked at the results route and identified the problematic line where the KeyError occurred (line 53).
+     - Checked the API response for the presence of the 'weather' key.
+
+  2. Trace Forward:
+     - Updated the code to handle the absence of 'weather' key.
+
+- Assumptions:
+  - Thought that the API response always contains a 'weather' key.
+
+- Solution:
+  - Updated the line 'description': result_json.get('weather', [{'description': 'Weather Data Not Available'}])[0]['description'] to handle the n/a of 'weather' key.
+
+Issue 3: TypeError - Incorrect key used for temperature in result_json
+
+- Expected vs. Actual Output:
+  - Expected Output: Successful display of the temperature information.
+  - Actual Output: Encountered a TypeError when trying to access the temperature in result_json.
+
+- Stack Trace:
+  - The stack trace indicated a TypeError with the message: Incorrect key used for temperature during the execution of the results route (line 54).
+
+- Technique Used:
+  - Trace Forward:
+    - Focused on the results route and identified the problematic line where the TypeError occurred (line 54).
+
+- Debugging Steps:
+  1. Trace Forward:
+     - Focused on the results route and identified the problematic line where the TypeError occurred (line 54).
+     - Checked the API response for the correct key for temperature.
+
+  2. Trace Forward:
+     - Updated the code to use the correct key for temperature.
+
+- Assumptions:
+  - Thought that the key for temperature in the API response is 'temp'.
+
+- Solution:
+  - Updated the line 'temp': result_json.get('main', {}).get('temp', 'Temperature Data Not Available') to use the correct key 'temp' for temperature.
+
+Issue 4: No handling for API request errors
+
+- Expected vs. Actual Output:
+  - Expected Output: No errors.
+  - Actual Output: No handling for API request errors, leading to potential issues.
+
+- Technique Used:
+  - Trace Forward:
+    - Looked at the results route and identified the absence of error handling for API requests.
+
+- Debugging Steps:
+  1. Trace Forward:
+     - Looked at the results route and identified the absence of error handling for API requests.
+     - Updated the code to handle API request errors and provide a meaningful message to the user.
+
+- Assumptions:
+  - Thought that API requests would always be successful.
+
+- Solution:
+  - Added error handling for API requests and provided a meaningful message in case of errors.
 
 ## Exercise 3
 

@@ -2,7 +2,7 @@
 {% block content %}
 
 <section class="weather-form">
-    <h2>What's the weather like today?</h1>
+    <h2>What's the weather like today?</h2>
 
     <form action="/results" method="GET">
         <fieldset>
@@ -11,22 +11,22 @@
             <p>
                 <label>
                     Please enter your city: <br>
-                    <input type="text" name="city">
+                    <input type="text" name="users_city">
                 </label>
             </p>
 
             <p>
                 Please choose your desired units: <br>
                 <label>
-                    <input type="radio" name="units" value="metric">
+                    <input type="radio" name="requested_units" value="metric">
                     Celsius
                 </label><br>
                 <label>
-                    <input type="radio" name="units" value="imperial">
+                    <input type="radio" name="requested_units" value="imperial">
                     Fahrenheit
                 </label><br>
                 <label>
-                    <input type="radio" name="units" value="kelvin">
+                    <input type="radio" name="requested_units" value="kelvin">
                     Kelvin
                 </label>
             </p>
