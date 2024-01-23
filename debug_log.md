@@ -72,4 +72,56 @@ Issue 2: BuildError - Could not build URL for endpoint '/'. Did you mean 'fulfil
 
 ## Exercise 3
 
-[[Your answer goes here!]]
+Issue 1: IndexError - list index out of range
+
+- Expected vs. Actual Output:
+  - Expected Output: Successful sorting of the list and correct index retrieval for the element 5.
+  - Actual Output: Got an IndexError: list index out of range during the execution of the merge_sort function.
+
+- Stack Trace:
+  - The stack trace indicated an IndexError with the message: list index out of range during the execution of the merge_sort function, specifically at line 36.
+
+- Technique Used:
+  - Trace Forward:
+    - Looked at the merge_sort function and identified the problematic line where the IndexError occurred (line 36).
+
+- Debugging Steps:
+  1. Trace Forward:
+     - Looked at the merge_sort function and identified the problematic line where the IndexError occurred (line 36).
+     - Noticed that the index i was mistakenly used instead of j in the while loop.
+
+  2. Trace Backward:
+     - Traced backward to understand the flow and discovered the incorrect usage of the index in the merge step.
+
+- Assumptions:
+  - Assumed that the merge step in the merge_sort function was working.
+
+- Solution:
+  - Changed arr[k] = right_side[i] to arr[k] = right_side[j] in the merge step.
+
+Issue 2: TypeError - list indices must be integers or slices, not float
+
+- Expected vs. Actual Output:
+  - Expected Output: Successfully retrieved the index of the element 5 using the binary search.
+  - Actual Output: Encountered a TypeError: list indices must be integers or slices, not float during the execution of the binary_search function.
+
+- Stack Trace:
+  - The stack trace indicated a TypeError with the message: list indices must be integers or slices, not float during the execution of the binary_search function.
+
+- Technique Used:
+  - Trace Forward:
+    - Looked at the binary_search function and identified the problematic line where the TypeError occurred.
+
+- Debugging Steps:
+  1. Trace Forward:
+     - Looked at the binary_search function and identified the problematic line where the TypeError occurred.
+     - Noticed that the mid value was not converted to an integer.
+
+  2. Divide & Conquer:
+     - Converted the mid value to an integer after calculating it.
+
+- Assumptions:
+  - Assumed that the mid-point calculation in the binary search was correctly handled.
+
+- Solution:
+  - Added mid = int(mid) to convert the mid-point value to an integer.
