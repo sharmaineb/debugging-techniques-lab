@@ -80,7 +80,7 @@ _Then I noticed another bug ..._
 - **Solution:**
   - Updated `'description': result_json.get('weather', [{'description': 'Weather Data Not Available'}])[0]['description']`.
 - **Solutions to other errors:**
-  - Minor fix to the <h2> tag in home.html
+  - Minor fix to the `<h2>` tag in home.html
 
 **Issue 3: TypeError - Incorrect key used for temperature in result_json**
 
