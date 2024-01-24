@@ -18,211 +18,154 @@ _Then I noticed another bug ..._
 Issue 1: TypeError - 'topping' is an invalid keyword argument for PizzaTopping
 
 - Expected vs. Actual Output:
-  - Expected Output: Successful submission of the pizza order without any errors.
-  - Actual Output: Encountered a TypeError: 'topping' is an invalid keyword argument for PizzaTopping.
+  - Expected: Successful pizza order submission.
+  - Actual: TypeError: 'topping' is an invalid keyword argument for PizzaTopping.
 
 - Stack Trace:
-  - The stack trace indicated a TypeError with the message 'topping' is an invalid keyword argument for PizzaTopping.
+  - TypeError: 'topping' is an invalid keyword argument for PizzaTopping.
 
-- Technique Used:
+- Technique:
   - Trace Backward:
     - Identified the error in the for loop in the pizza_order_submit route (lines 78-79).
-    - Realized that the argument name topping in PizzaTopping(topping=topping_str) was incorrect.
+    - Found the incorrect argument name topping in PizzaTopping(topping=topping_str).
 
 - Assumptions:
-  - Assumed that the line pizza.toppings.append(PizzaTopping(topping=topping_str)) was correct.
-  - Thought that the variable topping is the correct argument for creating a new instance of PizzaTopping.
+  - Assumed 'topping' was the correct argument for creating a PizzaTopping instance.
 
 - Solution:
- - for topping_str in ToppingType:
-        # changed the argument name to 'topping_type'
-        pizza.toppings.append(PizzaTopping(topping_type=topping_str))
+  - Changed the argument name to 'topping_type': `PizzaTopping(topping_type=topping_str)`.
 
 Issue 2: BuildError - Could not build URL for endpoint '/'. Did you mean 'fulfill_order' instead?
 
 - Expected vs. Actual Output:
-  - Expected Output: Successful redirection to the homepage after submitting a pizza order.
-  - Actual Output: Encountered a BuildError: Could not build URL for endpoint '/'. Did you mean 'fulfill_order' instead?
+  - Expected: Redirect to homepage after pizza order submission.
+  - Actual: BuildError: Could not build URL for endpoint '/'.
 
 - Stack Trace:
-  - The stack trace indicated a BuildError with the message: Could not build URL for endpoint '/'. Did you mean 'fulfill_order' instead?
+  - BuildError: Could not build URL for endpoint '/'.
 
-- Technique Used:
+- Technique:
   - Trace Forward:
     - Focused on the redirection line in the pizza_order_submit route (line 84).
-    - Checked if there was an issue with the url_for('/').
-
-- Debugging Steps:
-  1. Trace Forward:
-     - Focused on the redirection line in the pizza_order_submit route (line 84).
-     - Checked if there was an issue with the url_for('/').
-
-  2. Divide & Conquer:
-     - Simplified the redirection line to return redirect('/') instead of return redirect(url_for('/')).
+    - Checked url_for('/') for issues.
 
 - Assumptions:
-  - Assumed that url_for('/') would correctly resolve to the root URL for redirection.
+  - Assumed url_for('/') would correctly resolve to the root URL.
 
 - Solution:
-  - return redirect('/')
+  - Changed to `return redirect('/')`.
 
 ## Exercise 2
 
 Issue 1: KeyError - 'name' not found in result_json
 
 - Expected vs. Actual Output:
-  - Expected Output: Display weather information for the specified city.
-  - Actual Output: Encountered a KeyError: 'name' when trying to access 'name' in the result_json.
+  - Expected: Display weather info for the city.
+  - Actual: KeyError: 'name' not found in result_json.
 
 - Stack Trace:
-  - The stack trace indicated a KeyError with the message: 'name' not found during the execution of the results route (line 52).
+  - KeyError: 'name' not found in result_json (line 52).
 
-- Technique Used:
+- Technique:
   - Trace Forward:
-    - Looked at the results route and identified the problematic line where the KeyError occurred (line 52).
-
-- Debugging Steps:
-  1. Trace Forward:
-     - Looked at the results route and identified the problematic line where the KeyError occurred (line 52).
-     - Examined the API response to understand the structure of result_json.
-
-  2. Trace Forward:
-     - Identified that the API response may not have a 'name' key.
-     - Updated the code to handle the absence of 'name' key.
+    - Examined the results route and identified the line where KeyError occurred.
 
 - Assumptions:
-  - Assumed that the API response always contains a 'name' key.
+  - Assumed the API response always contains a 'name' key.
 
 - Solution:
-  - Updated the line 'city': result_json.get('name', 'City Name Not Available') to handle the n/a of 'name' key.
+  - Updated `'city': result_json.get('name', 'City Name Not Available')`.
 
 Issue 2: KeyError - 'weather' not found in result_json
 
 - Expected vs. Actual Output:
-  - Expected Output: Display weather information including the description.
-  - Actual Output: Encountered a KeyError: 'weather' when trying to access 'weather' in the result_json.
+  - Expected: Display weather info with description.
+  - Actual: KeyError: 'weather' not found in result_json.
 
 - Stack Trace:
-  - The stack trace indicated a KeyError with the message: 'weather' not found during the execution of the results route (line 53).
+  - KeyError: 'weather' not found in result_json (line 53).
 
-- Technique Used:
+- Technique:
   - Trace Forward:
-    - Looked at the results route and identified the problematic line where the KeyError occurred (line 53).
-
-- Debugging Steps:
-  1. Trace Forward:
-     - Looked at the results route and identified the problematic line where the KeyError occurred (line 53).
-     - Checked the API response for the presence of the 'weather' key.
-
-  2. Trace Forward:
-     - Updated the code to handle the absence of 'weather' key.
+    - Checked the results route and identified the line where KeyError occurred.
 
 - Assumptions:
-  - Thought that the API response always contains a 'weather' key.
+  - Assumed the API response always contains a 'weather' key.
 
 - Solution:
-  - Updated the line 'description': result_json.get('weather', [{'description': 'Weather Data Not Available'}])[0]['description'] to handle the n/a of 'weather' key.
+  - Updated `'description': result_json.get('weather', [{'description': 'Weather Data Not Available'}])[0]['description']`.
 
 Issue 3: TypeError - Incorrect key used for temperature in result_json
 
 - Expected vs. Actual Output:
-  - Expected Output: Successful display of the temperature information.
-  - Actual Output: Encountered a TypeError when trying to access the temperature in result_json.
+  - Expected: Display temperature info.
+  - Actual: TypeError: Incorrect key for temperature in result_json.
 
 - Stack Trace:
-  - The stack trace indicated a TypeError with the message: Incorrect key used for temperature during the execution of the results route (line 54).
+  - TypeError: Incorrect key for temperature in result_json (line 54).
 
-- Technique Used:
+- Technique:
   - Trace Forward:
-    - Focused on the results route and identified the problematic line where the TypeError occurred (line 54).
-
-- Debugging Steps:
-  1. Trace Forward:
-     - Focused on the results route and identified the problematic line where the TypeError occurred (line 54).
-     - Checked the API response for the correct key for temperature.
-
-  2. Trace Forward:
-     - Updated the code to use the correct key for temperature.
+    - Focused on the results route and identified the line with the TypeError.
 
 - Assumptions:
-  - Thought that the key for temperature in the API response is 'temp'.
+  - Assumed the key for temperature in API response is 'temp'.
 
 - Solution:
-  - Updated the line 'temp': result_json.get('main', {}).get('temp', 'Temperature Data Not Available') to use the correct key 'temp' for temperature.
+  - Updated `'temp': result_json.get('main', {}).get('temp', 'Temperature Data Not Available')`.
 
 Issue 4: No handling for API request errors
 
 - Expected vs. Actual Output:
-  - Expected Output: No errors.
-  - Actual Output: No handling for API request errors, leading to potential issues.
+  - Expected: No errors.
+  - Actual: No handling for API request errors.
 
-- Technique Used:
+- Technique:
   - Trace Forward:
-    - Looked at the results route and identified the absence of error handling for API requests.
-
-- Debugging Steps:
-  1. Trace Forward:
-     - Looked at the results route and identified the absence of error handling for API requests.
-     - Updated the code to handle API request errors and provide a meaningful message to the user.
+    - Checked the results route and identified the absence of error handling for API requests.
 
 - Assumptions:
-  - Thought that API requests would always be successful.
+  - Assumed API requests would always be successful.
 
 - Solution:
-  - Added error handling for API requests and provided a meaningful message in case of errors.
+  - Added error handling for API requests.
 
 ## Exercise 3
 
 Issue 1: IndexError - list index out of range
 
 - Expected vs. Actual Output:
-  - Expected Output: Successful sorting of the list and correct index retrieval for the element 5.
-  - Actual Output: Got an IndexError: list index out of range during the execution of the merge_sort function.
+  - Expected: Successful list sorting and correct index retrieval.
+  - Actual: IndexError: list index out of range.
 
 - Stack Trace:
-  - The stack trace indicated an IndexError with the message: list index out of range during the execution of the merge_sort function, specifically at line 36.
+  - IndexError: list index out of range (line 36).
 
-- Technique Used:
+- Technique:
   - Trace Forward:
-    - Looked at the merge_sort function and identified the problematic line where the IndexError occurred (line 36).
-
-- Debugging Steps:
-  1. Trace Forward:
-     - Looked at the merge_sort function and identified the problematic line where the IndexError occurred (line 36).
-     - Noticed that the index i was mistakenly used instead of j in the while loop.
-
-  2. Trace Backward:
-     - Traced backward to understand the flow and discovered the incorrect usage of the index in the merge step.
+    - Looked at the merge_sort function and identified the line with IndexError.
 
 - Assumptions:
-  - Assumed that the merge step in the merge_sort function was working.
+  - Assumed the merge step was functioning correctly.
 
 - Solution:
-  - Changed arr[k] = right_side[i] to arr[k] = right_side[j] in the merge step.
+  - Changed `arr[k] = right_side[i]` to `arr[k] = right_side[j]` in the merge step.
 
 Issue 2: TypeError - list indices must be integers or slices, not float
 
 - Expected vs. Actual Output:
-  - Expected Output: Successfully retrieved the index of the element 5 using the binary search.
-  - Actual Output: Encountered a TypeError: list indices must be integers or slices, not float during the execution of the binary_search function.
+  - Expected: Successful index retrieval using binary search.
+  - Actual: TypeError: list indices must be integers or slices, not float.
 
 - Stack Trace:
-  - The stack trace indicated a TypeError with the message: list indices must be integers or slices, not float during the execution of the binary_search function.
+  - TypeError: list indices must be integers or slices, not float.
 
-- Technique Used:
+- Technique:
   - Trace Forward:
-    - Looked at the binary_search function and identified the problematic line where the TypeError occurred.
-
-- Debugging Steps:
-  1. Trace Forward:
-     - Looked at the binary_search function and identified the problematic line where the TypeError occurred.
-     - Noticed that the mid value was not converted to an integer.
-
-  2. Divide & Conquer:
-     - Converted the mid value to an integer after calculating it.
+    - Examined the binary_search function and identified the line with TypeError.
 
 - Assumptions:
-  - Assumed that the mid-point calculation in the binary search was correctly handled.
+  - Assumed mid-point calculation in binary search was correctly handled.
 
 - Solution:
-  - Added mid = int(mid) to convert the mid-point value to an integer.
+  - Added `mid = int(mid)` to convert mid-point value to integer.
